@@ -1,7 +1,7 @@
 'use strict';
 
-var config = require('../config');
-var sendgrid = require('sendgrid')(config.sendgridKey);
+let config = require('../config');
+let sendgrid = require('sendgrid')(config.sendgridKey);
 
 exports.send = async (to, subject, body) => {
     sendgrid.send({
@@ -9,5 +9,5 @@ exports.send = async (to, subject, body) => {
         from: 'clessio@gmail.com',
         subject: subject,
         html: body
-    })
+    });
 }

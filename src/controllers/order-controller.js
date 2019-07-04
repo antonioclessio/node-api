@@ -8,11 +8,13 @@ exports.get = (req, res, next) => base.createReturn(res, async () => await repos
 exports.getById = (req, res, next) => base.createReturn(res, async () => await repository.getById(req.params.id));
 
 exports.post = async (req, res, next) => {
+    let tokenData = await base.decodeToken(req);
+    
     base.createReturn(res, async () =>
         await repository.create({
-            customer: req.body.customer,
+            customer: tokenData.id,
             number: guid.raw().substring(0, 6),
-            itens: req.body.itens
+            items: req.body.items
         })
     );
 };

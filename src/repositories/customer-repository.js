@@ -3,6 +3,15 @@
 const mongoose = require('mongoose');
 const CustomerModel = mongoose.model('CustomerModel');
 
+exports.authenticate = async (data) => {
+    let res = await CustomerModel.findOne({ 
+        email: data.email,
+        password: data.password
+    });
+
+    return res;
+}
+
 exports.get = async () => {
     return await CustomerModel.find({}, 'name email');
 }
@@ -12,7 +21,7 @@ exports.getById = async (id) => {
 }
 
 exports.create = async (data) => {
-    var Customer = new CustomerModel(data);
+    let Customer = new CustomerModel(data);
     await await Customer.save()
 }
 

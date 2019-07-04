@@ -3,11 +3,14 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/customer-controller');
+const authService = require('../services/auth-service');
 
-router.get('/', controller.get);
-router.get('/:id', controller.getById);
+router.get('/', authService.authorize, controller.get);
+router.get('/:id', authService.authorize, controller.getById);
 router.post('/', controller.create);
-router.put('/', controller.update);
-router.delete('/', controller.delete);
+router.put('/', authService.authorize, controller.update);
+router.delete('/', authService.authorize, controller.delete);
+router.post('/authenticate', controller.authenticate);
+router.post('/refresh-token', authService.authorize, controller.refreshToken);
 
 module.exports = router;
